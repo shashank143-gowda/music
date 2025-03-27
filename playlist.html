@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Playlist</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      margin: 0;
+      color: black;
+      background-image: url(https://wallpaperaccess.com/full/3875146.jpg);
+    }
+    .header {
+      text-align: center;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    .table-container {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #f4f4f4;
+      position: sticky;
+      top: 0;
+      color:black;
+    }
+    #backToHome {
+      align-self: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button id="viewPlaylist">My Playlist</button>
+  </div>
+
+  <div class="table-container" style="background-color: lightblue;">
+    <table id="playlistTable">
+      <thead>
+        <tr>
+          <th>Song</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <button id="backToHome" style="background-color: blue;">Back to Home</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let playlist = JSON.parse(localStorage.getItem("playlist")) || [];
+      const tableBody = document.querySelector("#playlistTable tbody");
+
+      if (playlist.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No songs in playlist.</td></tr>";
+      } else {
+        playlist.forEach((song, index) => {
+          const row = document.createElement("tr");
+
+          const titleCell = document.createElement("td");
+          titleCell.textContent = song.title;
+          row.appendChild(titleCell);
+
+          const imageCell = document.createElement("td");
+          const img = document.createElement("img");
+          img.src = song.img;
+          img.style.width = "100px";
+          img.style.height = "100px";
+          img.style.borderRadius = "10px";
+          imageCell.appendChild(img);
+          row.appendChild(imageCell);
+
+          const actionCell = document.createElement("td");
+          const playBtn = document.createElement("button");
+          playBtn.textContent = "Play";
+          playBtn.addEventListener("click", () => {
+            playSong(song, row);
+          });
+
+          const removeBtn = document.createElement("button");
+          removeBtn.textContent = "Remove";
+          removeBtn.addEventListener("click", () => {
+            playlist.splice(index, 1);
+            localStorage.setItem("playlist", JSON.stringify(playlist));
+            location.reload();
+          });
+
+          actionCell.appendChild(playBtn);
+          actionCell.appendChild(removeBtn);
+          row.appendChild(actionCell);
+          tableBody.appendChild(row);
+        });
+      }
+
+      document.getElementById("backToHome").addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+
+      function playSong(song, row) {
+        document.querySelectorAll('.playing-text').forEach(el => el.remove());
+        document.querySelectorAll('audio').forEach(audio => audio.remove());
+
+        let playingText = document.createElement("p");
+        playingText.textContent = `🎵 Now Playing: ${song.title}`;
+        playingText.classList.add('playing-text');
+        playingText.style.color = "green";
+        playingText.style.fontWeight = "bold";
+
+        let audioPlayer = document.createElement("audio");
+        audioPlayer.controls = true;
+        audioPlayer.src = song.src;
+        audioPlayer.autoplay = true;
+
+        row.appendChild(playingText);
+        row.appendChild(audioPlayer);
+      }
+    });
+  </script>
+</body>
+</html>

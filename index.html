@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth.js" defer></script>
+</head>
+
+<body class="ssm" id="sha" style="background-image: url(https://wallpaperaccess.com/full/536708.jpg);">
+  
+  <video autoplay loop muted playsinline class="background-video">
+    <source src=https://th.bing.com/th/id/OIP.kMUU6nJXMMD4DmqTwbqMRAAAAA?w=323&h=182&c=7&r=0&o=5&pid=1.7 type="video/mp4">
+   
+</video>
+   
+  <div class="music-player" >
+    <nav>
+        <button id="goToPlaylist">My Playlist</button>
+        <button id="goToFavorites">Favorites</button>
+        <button onclick="logout()">Logout</button>
+        
+
+    </nav>
+    
+    <h1 class="animated-text text-5xl font-bold text-white">
+      <span>M</span><span>u</span><span>s</span><span>i</span><span>c</span>
+      <span>A</span><span>l</span><span>b</span><span>u</span><span>m</span><span>s</span>
+    </h1>
+  
+  
+    <!-- Albums -->
+    <div class="albums">
+      <div class="album sad-songs" data-album="sad">
+        <h2>   </h2>
+      </div>
+      <div class="album love-songs" data-album="love">
+        <h2>   </h2>
+      </div>
+      <div class="album motivational-songs" data-album="motivational">
+        <h2></h2>
+      </div>
+      <div class="album romantic-songs" data-album="romantic">
+        <h2>  </h2>
+      </div>
+      <div class="album friendship-songs" data-album="friendship">
+        
+      </div>
+      <div class="album rap-songs" data-album="rap">
+      </div>
+    </div>
+  </div>
+  <h2 id="welcome-message"></h2>
+
+  
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+        <script>checkAuth();</script>
+</body>
+</html>
