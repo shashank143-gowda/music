@@ -59,14 +59,7 @@ Styling	TailwindCSS, Animate.css
 Storage	Web localStorage
 Media	Audio files and album art from assets/
 🚀 Getting Started
-1. Clone the Repository
-bash
-Copy
-Edit
-git clone https://github.com/your-username/music-album-site.git
-cd music-album-site
-2. Run the Project
-Simply open index.html in any modern web browser.
+
 
 No build process or server required — everything runs locally.
 
